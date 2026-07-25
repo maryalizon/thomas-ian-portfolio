@@ -12,7 +12,7 @@ const UPWORK_URL =
 const SHOWREEL_URL =
   "https://drive.google.com/file/d/1hD69kPphW7qak1-f1Cb_hWEbu7jPiJVF/preview";
 const HERO_VIDEO_URL = "/media/creator-authority.mp4";
-const PORTRAIT_URL = "/media/portrait.jpg";
+const PORTRAIT_URL = "/media/portrait.jpeg";
 
 const isDirectVideo = (url) => /\.(mp4|webm|ogg)(\?.*)?$/i.test(url);
 

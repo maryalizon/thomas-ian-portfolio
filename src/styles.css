@@ -50,6 +50,7 @@ img {
   height: 100%;
   inset: 0;
   object-fit: cover;
+  object-position: center center;
   position: absolute;
   width: 100%;
 }
@@ -558,12 +559,12 @@ h2 em {
 
 .reel-frame {
   margin: 0 auto;
-  max-width: 430px;
+  max-width: 100%;
   position: relative;
 }
 
 .reel-visual {
-  aspect-ratio: 9 / 16;
+  aspect-ratio: 16 / 9;
   background:
     radial-gradient(circle at 62% 24%, rgba(60, 150, 255, 0.23), transparent 22%),
     linear-gradient(128deg, #06101c 0%, #111923 47%, #05080d 100%);
@@ -794,7 +795,7 @@ h2 em {
   }
 
   .reel-visual {
-    aspect-ratio: 9 / 11;
+    aspect-ratio: 16 / 9;
   }
 
   .reel-word {
@@ -888,7 +889,7 @@ h2 em {
 }
 
 .portrait-card {
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 9 / 16;
   background:
     radial-gradient(circle at 50% 29%, rgba(69, 135, 218, 0.2), transparent 21%),
     linear-gradient(145deg, #0d1724, #060a10 74%);
