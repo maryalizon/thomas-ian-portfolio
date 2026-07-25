@@ -1,0 +1,18 @@
+Upload your media files into this folder.
+
+Suggested filenames:
+- portrait.webp
+- showreel.mp4
+- project-01.mp4
+- project-02.mp4
+
+Then open src/App.jsx and use:
+
+const PORTRAIT_URL = "/media/portrait.webp";
+const SHOWREEL_URL = "/media/showreel.mp4";
+
+For a portfolio item:
+embedUrl: "/media/project-01.mp4",
+
+For faster loading, full-length videos should be hosted on Vimeo, YouTube,
+or Cloudinary. Paste their EMBED URL into SHOWREEL_URL or embedUrl.
