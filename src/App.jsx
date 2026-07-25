@@ -7,7 +7,10 @@ import { useEffect, useRef, useState } from "react";
  * - You can also paste a YouTube, Vimeo, or Google Drive embed URL.
  * - Keep large/full-length videos on Vimeo, YouTube, or Cloudinary for speed.
  */
-const SHOWREEL_URL = "";
+const UPWORK_URL =
+  "https://www.upwork.com/freelancers/~015a17f08c4a847874?mp_source=share";
+const SHOWREEL_URL =
+  "https://drive.google.com/file/d/1zwvd3tZXNA9ygkjfZ3XNHz-foXeVZ4iv/preview";
 const PORTRAIT_URL = "";
 
 const isDirectVideo = (url) => /\.(mp4|webm|ogg)(\?.*)?$/i.test(url);
@@ -32,7 +35,8 @@ const portfolioItems = [
     format: "Long-form storytelling",
     accent: "#2869c7",
     number: "01",
-    embedUrl: "",
+    embedUrl:
+      "https://drive.google.com/file/d/1ICevrW9JTY8VCG_1kfjbsaKhTvCBrm9u/preview",
   },
   {
     title: "Momentum",
@@ -40,7 +44,8 @@ const portfolioItems = [
     format: "Social content system",
     accent: "#665cff",
     number: "02",
-    embedUrl: "",
+    embedUrl:
+      "https://drive.google.com/file/d/1h5wmMD8dpJ3ynjXRP1xBNaT0UtrLxHxX/preview",
   },
   {
     title: "The New Standard",
@@ -48,7 +53,8 @@ const portfolioItems = [
     format: "Brand campaign",
     accent: "#b26a37",
     number: "03",
-    embedUrl: "",
+    embedUrl:
+      "https://drive.google.com/file/d/1uHG7EG7Y6CF2MY8b1wyLs6rlto3ifQRU/preview",
   },
   {
     title: "Built to Convert",
@@ -56,7 +62,8 @@ const portfolioItems = [
     format: "Performance creative",
     accent: "#267d84",
     number: "04",
-    embedUrl: "",
+    embedUrl:
+      "https://drive.google.com/file/d/12JUjIWUJHIqcdch6RV97QH0ySCNYA3i8/preview",
   },
   {
     title: "Future in Motion",
@@ -64,7 +71,8 @@ const portfolioItems = [
     format: "Company story",
     accent: "#49719e",
     number: "05",
-    embedUrl: "",
+    embedUrl:
+      "https://drive.google.com/file/d/1LtQE935jgjspRqoHgD92hFc0FI8yR75w/preview",
   },
   {
     title: "Quiet Luxury",
@@ -72,18 +80,19 @@ const portfolioItems = [
     format: "Editorial brand film",
     accent: "#967e58",
     number: "06",
-    embedUrl: "",
+    embedUrl:
+      "https://drive.google.com/file/d/1yYQTnuVm_xd7xKM5LLp58UnpCNuKwyWz/preview",
   },
 ];
 
 const services = [
   ["01", "Short-form Video Editing", "Hooks, pacing, captions, and visual rhythm engineered for retention."],
-  ["02", "YouTube Editing", "Narrative-led long-form edits that deepen trust and keep audiences watching."],
+  ["02", "DTC & E-commerce Video Ads", "Conversion-focused product videos and performance creatives built for modern online brands."],
   ["03", "Social Media Content", "Platform-native content designed to feel natural, polished, and on-brand."],
   ["04", "Creative Strategy", "Concepts, content direction, and performance thinking before the timeline opens."],
   ["05", "Content Repurposing", "One strong idea transformed into an efficient, multi-platform content system."],
   ["06", "Motion Graphics", "Purposeful graphics and animation that clarify ideas and elevate production value."],
-  ["07", "Colour Grading", "Cinematic colour systems that create atmosphere and strengthen visual identity."],
+  ["07", "AI-Powered Video Editing", "Efficient AI-assisted workflows that accelerate production while preserving creative quality."],
   ["08", "Brand Storytelling", "Strategic stories that make the right people feel, remember, and take action."],
   ["09", "Social Optimisation", "Sharper openings, cleaner pacing, and edits informed by viewer behaviour."],
   ["10", "Content Consultation", "A focused creative review to find stronger angles, systems, and opportunities."],
@@ -167,7 +176,7 @@ export default function Home() {
           <a href="#process">Process</a>
           <a href="#contact">Contact</a>
         </div>
-        <a className="nav-cta" href="#contact">
+        <a className="nav-cta" href={UPWORK_URL} target="_blank" rel="noreferrer">
           Hire Me <Arrow />
         </a>
         <button
@@ -215,7 +224,7 @@ export default function Home() {
             creative execution.
           </p>
           <div className="hero-actions reveal reveal-four">
-            <a className="button button-primary" href="#contact">
+            <a className="button button-primary" href={UPWORK_URL} target="_blank" rel="noreferrer">
               Hire Me <Arrow />
             </a>
             <button className="button button-ghost" onClick={scrollToShowreel}>
@@ -548,7 +557,7 @@ export default function Home() {
           <br />
           worth <em>watching.</em>
         </h2>
-        <a className="button button-primary cta-button" href="#contact">
+        <a className="button button-primary cta-button" href={UPWORK_URL} target="_blank" rel="noreferrer">
           Hire Me <Arrow />
         </a>
       </section>
@@ -562,7 +571,7 @@ export default function Home() {
             respond with the best next step.
           </p>
           <div className="contact-links">
-            <a href="#" aria-label="Upwork profile">
+            <a href={UPWORK_URL} target="_blank" rel="noreferrer" aria-label="Upwork profile">
               Upwork <Arrow />
             </a>
             <a href="#" aria-label="LinkedIn profile">
