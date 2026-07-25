@@ -563,6 +563,27 @@ h2 em {
   position: relative;
 }
 
+.reel-frame::before {
+  animation: reel-glow-orbit 5.5s linear infinite;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(255, 255, 255, 0.06) 55deg,
+    rgba(255, 255, 255, 0.82) 88deg,
+    rgba(140, 195, 255, 0.38) 112deg,
+    transparent 155deg,
+    transparent 360deg
+  );
+  border-radius: 10px;
+  content: "";
+  filter: blur(15px);
+  inset: -8px;
+  opacity: 0.7;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
 .reel-visual {
   aspect-ratio: 16 / 9;
   background:
@@ -576,6 +597,13 @@ h2 em {
   overflow: hidden;
   place-items: center;
   position: relative;
+  z-index: 1;
+}
+
+@keyframes reel-glow-orbit {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .reel-visual::before {
@@ -1913,6 +1941,38 @@ footer > a {
 }
 
 @media (max-width: 620px) {
+  .showreel.section {
+    padding-bottom: 72px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 82px;
+  }
+
+  .showreel .section-heading {
+    margin-bottom: 34px;
+    padding: 0 8px;
+  }
+
+  .reel-frame {
+    width: 100%;
+  }
+
+  .reel-frame::before {
+    filter: blur(10px);
+    inset: -5px;
+    opacity: 0.82;
+  }
+
+  .reel-visual {
+    aspect-ratio: 16 / 9;
+    border-radius: 7px;
+    width: 100%;
+  }
+
+  .reel-visual iframe {
+    display: block;
+  }
+
   .client-marquee {
     padding: 17px 0;
   }
