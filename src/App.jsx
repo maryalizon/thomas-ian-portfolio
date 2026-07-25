@@ -10,8 +10,9 @@ import { useEffect, useRef, useState } from "react";
 const UPWORK_URL =
   "https://www.upwork.com/freelancers/~015a17f08c4a847874?mp_source=share";
 const SHOWREEL_URL =
-  "https://drive.google.com/file/d/1zwvd3tZXNA9ygkjfZ3XNHz-foXeVZ4iv/preview";
-const PORTRAIT_URL = "";
+  "https://drive.google.com/file/d/1hD69kPphW7qak1-f1Cb_hWEbu7jPiJVF/preview";
+const HERO_VIDEO_URL = "/media/creator-authority.mp4";
+const PORTRAIT_URL = "/media/portrait.jpg";
 
 const isDirectVideo = (url) => /\.(mp4|webm|ogg)(\?.*)?$/i.test(url);
 
@@ -30,29 +31,20 @@ const VideoDisplay = ({ url, title }) =>
 
 const portfolioItems = [
   {
-    title: "Creator Authority",
-    category: "YouTube",
-    format: "Long-form storytelling",
-    accent: "#2869c7",
-    number: "01",
-    embedUrl:
-      "https://drive.google.com/file/d/1ICevrW9JTY8VCG_1kfjbsaKhTvCBrm9u/preview",
-  },
-  {
     title: "Momentum",
     category: "Short Form",
     format: "Social content system",
     accent: "#665cff",
-    number: "02",
+    number: "01",
     embedUrl:
-      "https://drive.google.com/file/d/1h5wmMD8dpJ3ynjXRP1xBNaT0UtrLxHxX/preview",
+      "https://drive.google.com/file/d/1yYQTnuVm_xd7xKM5LLp58UnpCNuKwyWz/preview",
   },
   {
     title: "The New Standard",
     category: "Commercial",
     format: "Brand campaign",
     accent: "#b26a37",
-    number: "03",
+    number: "02",
     embedUrl:
       "https://drive.google.com/file/d/1uHG7EG7Y6CF2MY8b1wyLs6rlto3ifQRU/preview",
   },
@@ -61,27 +53,27 @@ const portfolioItems = [
     category: "Social Ads",
     format: "Performance creative",
     accent: "#267d84",
-    number: "04",
+    number: "03",
     embedUrl:
-      "https://drive.google.com/file/d/12JUjIWUJHIqcdch6RV97QH0ySCNYA3i8/preview",
+      "https://drive.google.com/file/d/1LtQE935jgjspRqoHgD92hFc0FI8yR75w/preview",
   },
   {
     title: "Future in Motion",
     category: "Corporate",
     format: "Company story",
     accent: "#49719e",
-    number: "05",
+    number: "04",
     embedUrl:
-      "https://drive.google.com/file/d/1LtQE935jgjspRqoHgD92hFc0FI8yR75w/preview",
+      "https://drive.google.com/file/d/12JUjIWUJHIqcdch6RV97QH0ySCNYA3i8/preview",
   },
   {
     title: "Quiet Luxury",
     category: "Luxury",
     format: "Editorial brand film",
     accent: "#967e58",
-    number: "06",
+    number: "05",
     embedUrl:
-      "https://drive.google.com/file/d/1yYQTnuVm_xd7xKM5LLp58UnpCNuKwyWz/preview",
+      "https://drive.google.com/file/d/1ICevrW9JTY8VCG_1kfjbsaKhTvCBrm9u/preview",
   },
 ];
 
@@ -230,6 +222,22 @@ export default function Home() {
             <button className="button button-ghost" onClick={scrollToShowreel}>
               View Portfolio <Arrow down />
             </button>
+          </div>
+        </div>
+
+        <div className="hero-video-wrap reveal reveal-three" aria-label="Creator Authority">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            src={HERO_VIDEO_URL}
+          />
+          <div className="hero-video-overlay" />
+          <div className="hero-video-label">
+            <span>Creator Authority</span>
+            <span>Video Editor / Creative Strategist</span>
           </div>
         </div>
 

@@ -165,7 +165,9 @@ button {
   background:
     radial-gradient(circle at 78% 50%, rgba(19, 77, 145, 0.14), transparent 28%),
     linear-gradient(135deg, #030507 0%, #05080c 58%, #07111d 100%);
-  display: flex;
+  display: grid;
+  gap: clamp(34px, 5vw, 86px);
+  grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr);
   min-height: 100svh;
   overflow: hidden;
   padding: 150px max(6vw, 24px) 110px;
@@ -255,7 +257,7 @@ button {
 }
 
 .hero-content {
-  max-width: 1120px;
+  max-width: 820px;
   position: relative;
   width: 100%;
   z-index: 2;
@@ -282,12 +284,60 @@ button {
 }
 
 .hero h1 {
-  font-size: clamp(3.8rem, 8.1vw, 8.2rem);
+  font-size: clamp(3.4rem, 6vw, 6.6rem);
   font-weight: 570;
   letter-spacing: -0.068em;
   line-height: 0.91;
   margin: 34px 0 36px;
   max-width: 1150px;
+}
+
+.hero-video-wrap {
+  aspect-ratio: 16 / 9;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 5px;
+  box-shadow: 0 32px 100px rgba(0, 0, 0, 0.62);
+  isolation: isolate;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  z-index: 2;
+}
+
+.hero-video-wrap video {
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  position: absolute;
+  width: 100%;
+}
+
+.hero-video-overlay {
+  background:
+    linear-gradient(90deg, rgba(3, 5, 7, 0.55), rgba(4, 8, 14, 0.12) 45%, rgba(3, 5, 7, 0.28)),
+    linear-gradient(0deg, rgba(3, 5, 7, 0.62), transparent 45%);
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.hero-video-label {
+  align-items: flex-end;
+  bottom: 18px;
+  display: flex;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 8px;
+  justify-content: space-between;
+  left: 20px;
+  letter-spacing: 0.12em;
+  position: absolute;
+  right: 20px;
+  text-transform: uppercase;
+}
+
+.hero-video-label span:last-child {
+  color: #7f8b99;
+  text-align: right;
 }
 
 h1 em,
@@ -507,11 +557,13 @@ h2 em {
 }
 
 .reel-frame {
+  margin: 0 auto;
+  max-width: 430px;
   position: relative;
 }
 
 .reel-visual {
-  aspect-ratio: 16 / 8.7;
+  aspect-ratio: 9 / 16;
   background:
     radial-gradient(circle at 62% 24%, rgba(60, 150, 255, 0.23), transparent 22%),
     linear-gradient(128deg, #06101c 0%, #111923 47%, #05080d 100%);
@@ -1105,7 +1157,7 @@ h2 em {
 .portfolio-grid {
   display: grid;
   gap: 65px 22px;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .project-card {
@@ -1113,7 +1165,7 @@ h2 em {
 }
 
 .project-visual {
-  aspect-ratio: 16 / 10.2;
+  aspect-ratio: 9 / 16;
   background:
     radial-gradient(circle at 55% 45%, color-mix(in srgb, var(--project-accent) 36%, transparent), transparent 28%),
     linear-gradient(135deg, color-mix(in srgb, var(--project-accent) 18%, #08101a), #05080d 70%);
@@ -1673,6 +1725,18 @@ footer > a {
 }
 
 @media (max-width: 980px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-content {
+    max-width: 900px;
+  }
+
+  .hero-video-wrap {
+    max-width: 760px;
+  }
+
   .about {
     gap: 75px;
     grid-template-columns: 0.8fr 1.2fr;
@@ -1711,6 +1775,10 @@ footer > a {
 }
 
 @media (max-width: 820px) {
+  .hero {
+    padding-top: 130px;
+  }
+
   .nav .nav-cta {
     display: none;
   }
@@ -1868,7 +1936,11 @@ footer > a {
   }
 
   .project-visual {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 9 / 16;
+  }
+
+  .hero-video-label span:last-child {
+    display: none;
   }
 
   .project-visual button {
