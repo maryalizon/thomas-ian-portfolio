@@ -129,6 +129,15 @@ const serviceReels = serviceGroups.flatMap((group) =>
   })),
 );
 
+const shuffledServiceReels = (() => {
+  const reels = [...serviceReels];
+  for (let index = reels.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [reels[index], reels[randomIndex]] = [reels[randomIndex], reels[index]];
+  }
+  return reels;
+})();
+
 const strengths = [
   ["01", "Top Rated Plus", "A proven record of quality, trust, and consistent delivery on Upwork."],
   ["02", "Storytelling First", "Every cut supports the message, the emotion, and the reason to keep watching."],
@@ -169,8 +178,10 @@ const Quote = () => (
 const ServiceVideoCarousel = () => {
   const carouselRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const doubledReels = [...serviceReels, ...serviceReels];
-  const activeReel = serviceReels[activeIndex % serviceReels.length];
+  const [paused, setPaused] = useState(false);
+  const doubledReels = [...shuffledServiceReels, ...shuffledServiceReels];
+  const activeReel =
+    shuffledServiceReels[activeIndex % shuffledServiceReels.length];
 
   useEffect(() => {
     const carousel = carouselRef.current;
@@ -196,6 +207,8 @@ const ServiceVideoCarousel = () => {
   }, []);
 
   useEffect(() => {
+    if (paused) return undefined;
+
     const timer = window.setInterval(() => {
       const carousel = carouselRef.current;
       if (!carousel) return;
@@ -211,11 +224,11 @@ const ServiceVideoCarousel = () => {
         if (carousel.scrollLeft >= halfway) {
           carousel.scrollLeft -= halfway;
         }
-      }, 520);
-    }, 1500);
+      }, 650);
+    }, 3500);
 
     return () => window.clearInterval(timer);
-  }, []);
+  }, [paused]);
 
   const updateActiveReel = () => {
     const carousel = carouselRef.current;
@@ -224,11 +237,20 @@ const ServiceVideoCarousel = () => {
 
     const gap = Number.parseFloat(getComputedStyle(carousel).columnGap || "18");
     const step = card.getBoundingClientRect().width + gap;
-    setActiveIndex(Math.round(carousel.scrollLeft / step) % serviceReels.length);
+    setActiveIndex(
+      Math.round(carousel.scrollLeft / step) % shuffledServiceReels.length,
+    );
   };
 
   return (
-    <div className="service-carousel-shell">
+    <div
+      className="service-carousel-shell"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onTouchCancel={() => setPaused(false)}
+      onTouchEnd={() => setPaused(false)}
+      onTouchStart={() => setPaused(true)}
+    >
       <div className="service-carousel-status" aria-live="polite">
         <div>
           <span>{activeReel.number} / What I offer</span>
@@ -245,7 +267,9 @@ const ServiceVideoCarousel = () => {
         {doubledReels.map((reel, index) => (
           <article
             className={`service-reel-card ${
-              index % serviceReels.length === activeIndex ? "service-reel-active" : ""
+              index % shuffledServiceReels.length === activeIndex
+                ? "service-reel-active"
+                : ""
             }`}
             key={`${reel.slug}-${reel.reelNumber}-${index}`}
           >
@@ -269,8 +293,8 @@ const ServiceVideoCarousel = () => {
       </div>
 
       <div className="service-carousel-hint">
-        <span>Auto-playing continuously</span>
-        <span>Swipe to explore</span>
+        <span>{paused ? "Paused" : "Auto-playing"}</span>
+        <span>Hover or hold to pause / Swipe to explore</span>
       </div>
     </div>
   );
