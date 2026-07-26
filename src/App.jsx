@@ -9,8 +9,7 @@ import { useEffect, useRef, useState } from "react";
  */
 const UPWORK_URL =
   "https://www.upwork.com/freelancers/~015a17f08c4a847874?mp_source=share";
-const SHOWREEL_URL =
-  "https://drive.google.com/file/d/1hD69kPphW7qak1-f1Cb_hWEbu7jPiJVF/preview";
+const SHOWREEL_URL = "/media/showreel.mp4";
 const HERO_VIDEO_URL = "/media/creator-authority.mp4";
 const PORTRAIT_URL = "/media/portrait.jpeg";
 
@@ -349,8 +348,8 @@ export default function Home() {
             </div>
           </div>
           <div className="portrait-badge">
-            <strong>TOP</strong>
-            <span>Rated Plus</span>
+            <span className="upwork-badge-icon" aria-hidden="true">☆</span>
+            <strong>Top Rated Plus</strong>
           </div>
         </div>
         <div className="about-copy">
