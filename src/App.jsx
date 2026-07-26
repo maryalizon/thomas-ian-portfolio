@@ -76,18 +76,65 @@ const portfolioItems = [
   },
 ];
 
-const services = [
-  ["01", "Short-form Video Editing", "Hooks, pacing, captions, and visual rhythm engineered for retention."],
-  ["02", "DTC & E-commerce Video Ads", "Conversion-focused product videos and performance creatives built for modern online brands."],
-  ["03", "Social Media Content", "Platform-native content designed to feel natural, polished, and on-brand."],
-  ["04", "Creative Strategy", "Concepts, content direction, and performance thinking before the timeline opens."],
-  ["05", "Content Repurposing", "One strong idea transformed into an efficient, multi-platform content system."],
-  ["06", "Motion Graphics", "Purposeful graphics and animation that clarify ideas and elevate production value."],
-  ["07", "AI-Powered Video Editing", "Efficient AI-assisted workflows that accelerate production while preserving creative quality."],
-  ["08", "Brand Storytelling", "Strategic stories that make the right people feel, remember, and take action."],
-  ["09", "Social Optimisation", "Sharper openings, cleaner pacing, and edits informed by viewer behaviour."],
-  ["10", "Content Consultation", "A focused creative review to find stronger angles, systems, and opportunities."],
+const serviceGroups = [
+  {
+    number: "01",
+    title: "Short-Form / Reels",
+    slug: "short-form",
+    count: 5,
+    description: "Hooks, pacing, captions, and visual rhythm engineered for retention.",
+  },
+  {
+    number: "02",
+    title: "DTC & E-commerce Ads",
+    slug: "dtc-ads",
+    count: 5,
+    description: "Conversion-focused product videos and performance creative for modern online brands.",
+  },
+  {
+    number: "03",
+    title: "Social Media Content",
+    slug: "social-media",
+    count: 5,
+    description: "Platform-native content designed to feel natural, polished, and on-brand.",
+  },
+  {
+    number: "04",
+    title: "Creative Strategy",
+    slug: "creative-strategy",
+    count: 5,
+    description: "Concepts, content direction, and performance thinking before the timeline opens.",
+  },
+  {
+    number: "05",
+    title: "Content Repurposing",
+    slug: "repurposing",
+    count: 5,
+    description: "One strong idea transformed into an efficient, multi-platform content system.",
+  },
+  {
+    number: "06",
+    title: "AI-Powered Video Editing",
+    slug: "ai-editing",
+    count: 10,
+    description: "AI-assisted workflows that accelerate production while preserving creative quality.",
+  },
+  {
+    number: "07",
+    title: "AI Character Animation",
+    slug: "ai-animation",
+    count: 5,
+    description: "AI-powered character animation and visual storytelling for campaigns and branded content.",
+  },
 ];
+
+const serviceReels = serviceGroups.flatMap((group) =>
+  Array.from({ length: group.count }, (_, index) => ({
+    ...group,
+    file: `/media/${group.slug}-${String(index + 1).padStart(2, "0")}.mp4`,
+    reelNumber: index + 1,
+  })),
+);
 
 const strengths = [
   ["01", "Top Rated Plus", "A proven record of quality, trust, and consistent delivery on Upwork."],
@@ -125,6 +172,122 @@ const Quote = () => (
     <path d="M0 24V13.2C0 4.8 4.2.6 12.6 0v5.4c-4 .4-6 2.6-6 6.6H12v12H0Zm20 0V13.2C20 4.8 24.2.6 32.6 0v5.4c-4 .4-6 2.6-6 6.6H32v12H20Z" />
   </svg>
 );
+
+const ServiceVideoCarousel = () => {
+  const carouselRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const doubledReels = [...serviceReels, ...serviceReels];
+  const activeReel = serviceReels[activeIndex % serviceReels.length];
+
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return undefined;
+
+    const videos = [...carousel.querySelectorAll("video")];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target;
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { root: carousel, threshold: 0.6 },
+    );
+
+    videos.forEach((video) => observer.observe(video));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (paused) return undefined;
+
+    const timer = window.setInterval(() => {
+      const carousel = carouselRef.current;
+      if (!carousel) return;
+      const card = carousel.querySelector(".service-reel-card");
+      if (!card) return;
+
+      const gap = Number.parseFloat(getComputedStyle(carousel).columnGap || "18");
+      const step = card.getBoundingClientRect().width + gap;
+      carousel.scrollBy({ left: step, behavior: "smooth" });
+
+      window.setTimeout(() => {
+        const halfway = carousel.scrollWidth / 2;
+        if (carousel.scrollLeft >= halfway) {
+          carousel.scrollLeft -= halfway;
+        }
+      }, 650);
+    }, 2600);
+
+    return () => window.clearInterval(timer);
+  }, [paused]);
+
+  const updateActiveReel = () => {
+    const carousel = carouselRef.current;
+    const card = carousel?.querySelector(".service-reel-card");
+    if (!carousel || !card) return;
+
+    const gap = Number.parseFloat(getComputedStyle(carousel).columnGap || "18");
+    const step = card.getBoundingClientRect().width + gap;
+    setActiveIndex(Math.round(carousel.scrollLeft / step) % serviceReels.length);
+  };
+
+  return (
+    <div
+      className="service-carousel-shell"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div className="service-carousel-status" aria-live="polite">
+        <div>
+          <span>{activeReel.number} / What I offer</span>
+          <h3>{activeReel.title}</h3>
+        </div>
+        <p>{activeReel.description}</p>
+      </div>
+
+      <div
+        className="service-video-carousel"
+        onScroll={updateActiveReel}
+        ref={carouselRef}
+      >
+        {doubledReels.map((reel, index) => (
+          <article
+            className={`service-reel-card ${
+              index % serviceReels.length === activeIndex ? "service-reel-active" : ""
+            }`}
+            key={`${reel.slug}-${reel.reelNumber}-${index}`}
+          >
+            <div className="service-video-glow" />
+            <video
+              aria-label={`${reel.title} example ${reel.reelNumber}`}
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              src={reel.file}
+            />
+            <div className="service-reel-shade" />
+            <div className="service-reel-meta">
+              <span>{reel.title}</span>
+              <span>{String(reel.reelNumber).padStart(2, "0")}</span>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div className="service-carousel-hint">
+        <span>Auto-playing</span>
+        <span>Hover to pause / Swipe to explore</span>
+      </div>
+    </div>
+  );
+};
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
@@ -387,18 +550,7 @@ export default function Home() {
             is shaped around clarity, retention, and brand value.
           </p>
         </div>
-        <div className="services-grid">
-          {services.map(([number, title, description]) => (
-            <article className="service-card" key={title}>
-              <span className="service-number">{number}</span>
-              <div>
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </div>
-              <span className="service-plus">+</span>
-            </article>
-          ))}
-        </div>
+        <ServiceVideoCarousel />
       </section>
 
       <section className="portfolio section" aria-labelledby="portfolio-title">
