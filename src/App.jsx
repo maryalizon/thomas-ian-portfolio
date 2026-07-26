@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
  */
 const UPWORK_URL =
   "https://www.upwork.com/freelancers/~015a17f08c4a847874?mp_source=share";
-const SHOWREEL_URL = "/media/showreel.mp4";
+const SHOWREEL_URL = "/media/Showreel.mp4";
 const HERO_VIDEO_URL = "/media/creator-authority.mp4";
 const PORTRAIT_URL = "/media/portrait.jpeg";
 
@@ -93,34 +93,27 @@ const serviceGroups = [
   },
   {
     number: "03",
-    title: "Social Media Content",
-    slug: "social-media",
-    count: 5,
-    description: "Platform-native content designed to feel natural, polished, and on-brand.",
-  },
-  {
-    number: "04",
     title: "Creative Strategy",
     slug: "creative-strategy",
     count: 5,
     description: "Concepts, content direction, and performance thinking before the timeline opens.",
   },
   {
-    number: "05",
+    number: "04",
     title: "Content Repurposing",
     slug: "repurposing",
     count: 5,
     description: "One strong idea transformed into an efficient, multi-platform content system.",
   },
   {
-    number: "06",
+    number: "05",
     title: "AI-Powered Video Editing",
     slug: "ai-editing",
     count: 9,
     description: "AI-assisted workflows that accelerate production while preserving creative quality.",
   },
   {
-    number: "07",
+    number: "06",
     title: "AI Character Animation",
     slug: "ai-animation",
     count: 5,
@@ -176,7 +169,6 @@ const Quote = () => (
 const ServiceVideoCarousel = () => {
   const carouselRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
   const doubledReels = [...serviceReels, ...serviceReels];
   const activeReel = serviceReels[activeIndex % serviceReels.length];
 
@@ -204,8 +196,6 @@ const ServiceVideoCarousel = () => {
   }, []);
 
   useEffect(() => {
-    if (paused) return undefined;
-
     const timer = window.setInterval(() => {
       const carousel = carouselRef.current;
       if (!carousel) return;
@@ -221,11 +211,11 @@ const ServiceVideoCarousel = () => {
         if (carousel.scrollLeft >= halfway) {
           carousel.scrollLeft -= halfway;
         }
-      }, 650);
-    }, 2600);
+      }, 520);
+    }, 1500);
 
     return () => window.clearInterval(timer);
-  }, [paused]);
+  }, []);
 
   const updateActiveReel = () => {
     const carousel = carouselRef.current;
@@ -238,11 +228,7 @@ const ServiceVideoCarousel = () => {
   };
 
   return (
-    <div
-      className="service-carousel-shell"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
+    <div className="service-carousel-shell">
       <div className="service-carousel-status" aria-live="polite">
         <div>
           <span>{activeReel.number} / What I offer</span>
@@ -266,6 +252,7 @@ const ServiceVideoCarousel = () => {
             <div className="service-video-glow" />
             <video
               aria-label={`${reel.title} example ${reel.reelNumber}`}
+              autoPlay
               loop
               muted
               playsInline
@@ -282,8 +269,8 @@ const ServiceVideoCarousel = () => {
       </div>
 
       <div className="service-carousel-hint">
-        <span>Auto-playing</span>
-        <span>Hover to pause / Swipe to explore</span>
+        <span>Auto-playing continuously</span>
+        <span>Swipe to explore</span>
       </div>
     </div>
   );
