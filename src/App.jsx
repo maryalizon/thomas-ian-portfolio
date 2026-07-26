@@ -81,7 +81,7 @@ const serviceGroups = [
     number: "01",
     title: "Short-Form / Reels",
     slug: "short-form",
-    count: 5,
+    count: 6,
     description: "Hooks, pacing, captions, and visual rhythm engineered for retention.",
   },
   {
@@ -116,7 +116,7 @@ const serviceGroups = [
     number: "06",
     title: "AI-Powered Video Editing",
     slug: "ai-editing",
-    count: 10,
+    count: 9,
     description: "AI-assisted workflows that accelerate production while preserving creative quality.",
   },
   {
